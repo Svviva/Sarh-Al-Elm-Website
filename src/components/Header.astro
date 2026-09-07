@@ -1,0 +1,173 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  lang: 'en' | 'ar';
+}
+const { lang } = Astro.props;
+const isAr = lang === 'ar';
+
+let silaUrl = '#';
+try {
+  const settings = await getEntry('settings', 'site');
+  silaUrl = settings?.data.silaLoginUrl || '#';
+} catch {}
+
+const nav = isAr
+  ? [
+      { href: '/ar/', label: 'الرئيسية' },
+      { href: '/ar/about/', label: 'عن المدرسة' },
+      { href: '/ar/academics/', label: 'الأكاديميات' },
+      { href: '/ar/admissions/', label: 'القبول' },
+      { href: '/ar/news/', label: 'الأخبار' },
+      { href: '/ar/gallery/', label: 'معرض الصور' },
+      { href: '/ar/contact/', label: 'اتصل بنا' },
+    ]
+  : [
+      { href: '/', label: 'Home' },
+      { href: '/about/', label: 'About' },
+      { href: '/academics/', label: 'Academics' },
+      { href: '/admissions/', label: 'Admissions' },
+      { href: '/news/', label: 'News' },
+      { href: '/gallery/', label: 'Gallery' },
+      { href: '/contact/', label: 'Contact' },
+    ];
+
+// current path without leading /ar to build the toggle link
+const currentPath = Astro.url.pathname;
+const toggleHref = isAr
+  ? currentPath.replace(/^\/ar/, '') || '/'
+  : `/ar${currentPath}`;
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href={isAr ? '/ar/' : '/'}>
+      <span class="crest">S</span>
+      <span class="brand-text">
+        <span class="name">{isAr ? 'صرح العلم' : 'Sarh Al Elm'}</span>
+        <span class="tag">{isAr ? 'نطمح للنجاح' : 'Aspiring for success'}</span>
+      </span>
+    </a>
+    <nav aria-label="Main navigation">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-list" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-list">
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <a class="lang-toggle" href={toggleHref}>{isAr ? 'EN' : 'عربي'}</a>
+      <a class="btn-navy" href={silaUrl} target="_blank" rel="noopener">
+        {isAr ? 'دخول سيلا' : 'Sila Login'}
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #ECEDEF;
+    z-index: 50;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .crest {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+  .brand-text .name { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: var(--navy); }
+  html[dir='rtl'] .brand-text .name { font-family: var(--font-display-ar); }
+  .brand-text .tag { font-size: 11px; color: var(--slate); }
+
+  nav ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  nav a:hover { color: var(--navy); }
+
+  .nav-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .lang-toggle {
+    border: 1px solid #DADCE0;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--slate);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .header-inner { flex-wrap: wrap; }
+    .nav-toggle { display: flex; }
+    nav ul {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      gap: 4px;
+      padding-top: 12px;
+    }
+    nav ul.open { display: flex; }
+    nav a { display: block; padding: 10px 0; border-bottom: 1px solid #F1F2F4; }
+    .brand-text .tag { display: none; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const list = document.getElementById('nav-list');
+  toggle?.addEventListener('click', () => {
+    const isOpen = list?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(!!isOpen));
+  });
+</script>

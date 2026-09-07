@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Inter:wght@400;500;600&family=Noto+Kufi+Arabic:wght@500;600&display=swap');
+
+:root {
+  --navy: #074B8A;
+  --navy-dark: #05386b;
+  --steel: #A6A6A6;
+  --slate: #6A696E;
+  --cream: #F7F8FA;
+  --ink: #1C2430;
+  --gold: #C79A3E;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-display-ar: 'Noto Kufi Arabic', sans-serif;
+  --font-body-ar: 'Noto Kufi Arabic', sans-serif;
+  --max-width: 1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #fff;
+  line-height: 1.5;
+}
+
+html[dir='rtl'] body {
+  font-family: var(--font-body-ar);
+}
+
+html[dir='rtl'] h1, html[dir='rtl'] h2, html[dir='rtl'] h3, html[dir='rtl'] blockquote {
+  font-family: var(--font-display-ar);
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 18px; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #fff;
+  color: var(--navy);
+  padding: 12px 26px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: none;
+}
+
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,.5);
+  color: #fff;
+  padding: 12px 26px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14.5px;
+  text-decoration: none;
+}
+
+.btn-navy {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}

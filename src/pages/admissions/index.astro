@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+let settings;
+try { settings = await getEntry('settings', 'site'); } catch {}
+const email = settings?.data.email || 'info@sarhalelm.om';
+const phone = settings?.data.phone || '+968 XXXX XXXX';
+
+const steps = [
+  { title: 'Contact the admissions office', body: 'Reach out by phone or email to check seat availability for your child\u2019s grade.' },
+  { title: 'Submit required documents', body: 'Birth certificate, passport copy, previous school records, and passport photos.' },
+  { title: 'Assessment & interview', body: 'A short, age-appropriate assessment and a family interview at the school.' },
+  { title: 'Offer & enrollment', body: 'Once accepted, complete enrollment paperwork and fee payment at the school office.' },
+];
+---
+<BaseLayout title="Admissions — Sarh Al Elm Private School" lang="en">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Admissions</p>
+      <h1>Join our learning community</h1>
+      <p class="sub">Admissions for Grades 1–8 are handled directly through our school office — here's what to expect.</p>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <h2>How to apply</h2>
+    <div class="steps">
+      {steps.map((s, i) => (
+        <div class="step">
+          <div class="step-num">{i + 1}</div>
+          <div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="block wrap contact-cta">
+    <h2>Get in touch with admissions</h2>
+    <p>Call <a href={`tel:${phone}`}>{phone}</a> or email <a href={`mailto:${email}`}>{email}</a> to begin the process.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; margin-bottom: 14px; max-width: 640px; }
+  .page-hero .sub { color: #DCE7F4; max-width: 560px; font-size: 15.5px; }
+  .block { padding: 64px 24px; }
+  h2 { font-family: var(--font-display); font-size: 24px; margin-bottom: 24px; color: var(--navy-dark); }
+  .steps { display: flex; flex-direction: column; gap: 24px; max-width: 640px; }
+  .step { display: flex; gap: 18px; }
+  .step-num {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 600; flex-shrink: 0;
+  }
+  .step h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .step p { font-size: 14.5px; color: var(--slate); line-height: 1.6; }
+  .contact-cta { background: var(--cream); text-align: center; }
+  .contact-cta p { font-size: 15.5px; }
+  .contact-cta a { color: var(--navy); font-weight: 600; text-decoration: none; }
+</style>

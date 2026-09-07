@@ -1,0 +1,114 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  lang: 'en' | 'ar';
+}
+const { lang } = Astro.props;
+const isAr = lang === 'ar';
+const p = isAr ? '/ar' : '';
+
+let settings;
+try {
+  settings = await getEntry('settings', 'site');
+} catch {}
+const data = settings?.data;
+
+const socials = [
+  { url: data?.facebookUrl, label: 'Facebook' },
+  { url: data?.instagramUrl, label: 'Instagram' },
+  { url: data?.youtubeUrl, label: 'YouTube' },
+  { url: data?.twitterUrl, label: 'Twitter / X' },
+].filter((s) => s.url);
+---
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="brand">
+        <span class="crest">S</span>
+        <span class="name">{isAr ? 'صرح العلم' : 'Sarh Al Elm'}</span>
+      </div>
+      <p class="blurb">
+        {isAr
+          ? 'مدرسة خاصة معتمدة من كامبريدج ووزارة التربية والتعليم العمانية، تخدم الصفوف ١ إلى ٨ في مسقط.'
+          : 'A Cambridge and Oman MOE-aligned private school serving Grades 1–8 in Muscat.'}
+      </p>
+      {socials.length > 0 && (
+        <ul class="socials">
+          {socials.map((s) => (
+            <li><a href={s.url} target="_blank" rel="noopener">{s.label}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div>
+      <h4>{isAr ? 'استكشف' : 'Explore'}</h4>
+      <ul>
+        <li><a href={`${p}/about/`}>{isAr ? 'عن المدرسة' : 'About'}</a></li>
+        <li><a href={`${p}/academics/`}>{isAr ? 'الأكاديميات' : 'Academics'}</a></li>
+        <li><a href={`${p}/admissions/`}>{isAr ? 'القبول' : 'Admissions'}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>{isAr ? 'المجتمع' : 'Community'}</h4>
+      <ul>
+        <li><a href={`${p}/news/`}>{isAr ? 'الأخبار' : 'News'}</a></li>
+        <li><a href={`${p}/gallery/`}>{isAr ? 'معرض الصور' : 'Gallery'}</a></li>
+        {data?.silaLoginUrl && <li><a href={data.silaLoginUrl} target="_blank" rel="noopener">Sila Login</a></li>}
+      </ul>
+    </div>
+    <div>
+      <h4>{isAr ? 'اتصل بنا' : 'Contact'}</h4>
+      <ul>
+        {data?.address && <li>{isAr ? (data.address_ar || data.address) : data.address}</li>}
+        {data?.phone && <li>{data.phone}</li>}
+        {data?.email && <li><a href={`mailto:${data.email}`}>{data.email}</a></li>}
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© {new Date().getFullYear()} {isAr ? 'صرح العلم للتعليم الخاص' : 'Sarh Al Elm Private School'}</span>
+    <a href={`${p}/privacy/`}>{isAr ? 'سياسة الخصوصية' : 'Privacy Policy · PDPL Compliance'}</a>
+  </div>
+</footer>
+
+<style>
+  footer { background: var(--navy-dark); color: #CFE0F2; padding: 56px 0 28px; margin-top: 0; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .crest {
+    width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 600; font-size: 16px;
+  }
+  .brand .name { font-family: var(--font-display); color: #fff; font-size: 16px; font-weight: 600; }
+  .blurb { font-size: 13px; color: #9FB6D0; max-width: 280px; line-height: 1.6; }
+  .socials { list-style: none; display: flex; gap: 14px; margin-top: 16px; }
+  .socials a { color: #B7CBE0; text-decoration: none; font-size: 12.5px; }
+  h4 { color: #fff; font-size: 14px; margin-bottom: 14px; font-weight: 600; }
+  footer ul { list-style: none; font-size: 13.5px; line-height: 2.1; }
+  footer ul a { color: #B7CBE0; text-decoration: none; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding-top: 20px;
+    font-size: 12.5px;
+    color: #8FA9C4;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-bottom a { color: #8FA9C4; }
+
+  @media (max-width: 800px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>

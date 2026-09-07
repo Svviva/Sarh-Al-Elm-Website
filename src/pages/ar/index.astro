@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+let slides = [];
+try {
+  slides = (await getCollection('hero-slides')).sort((a, b) => a.data.order - b.data.order);
+} catch {}
+
+let newsItems = [];
+try {
+  newsItems = (await getCollection('news'))
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 3);
+} catch {}
+
+let singles = [];
+let albums = [];
+try {
+  singles = await getCollection('gallery-singles');
+  albums = await getCollection('gallery-albums');
+} catch {}
+const galleryPreview = [...albums.map(a => ({ image: a.data.coverImage })), ...singles.map(s => ({ image: s.data.image }))].slice(0, 5);
+---
+<BaseLayout title="مدرسة صرح العلم الخاصة" lang="ar" description="مدرسة خاصة معتمدة من كامبريدج ووزارة التربية والتعليم العمانية، تخدم الصفوف ١ إلى ٨ في مسقط.">
+
+  <section class="hero">
+    <div class="hero-slide"></div>
+    <div class="hero-watermark" aria-hidden="true"></div>
+    <div class="wrap hero-content">
+      <p class="eyebrow">الصفوف ١–٨ · منهج كامبريدج ووزارة التربية والتعليم العمانية</p>
+      <h1>حيث يتحول الفضول إلى إنجاز</h1>
+      <p class="sub">مجتمع تعليمي في مسقط مبني على أسس قوية، وتميز ثنائي اللغة، وحب الاكتشاف.</p>
+      <div class="hero-ctas">
+        <a href="/ar/admissions/" class="btn-primary">التقديم للقبول</a>
+        <a href="/ar/academics/" class="btn-ghost">استكشف الأكاديميات</a>
+      </div>
+    </div>
+    {slides.length > 1 && (
+      <div class="hero-dots" aria-hidden="true">
+        {slides.map((_, i) => <span class={i === 0 ? 'active' : ''}></span>)}
+      </div>
+    )}
+  </section>
+
+  <div class="stats wrap">
+    <div class="stat"><div class="icon">🚀</div><div class="num">٨</div><div class="label">صفوف دراسية</div></div>
+    <div class="stat"><div class="icon">📖</div><div class="num">+١٢</div><div class="label">مواد أساسية</div></div>
+    <div class="stat"><div class="icon">🎓</div><div class="num">٪٩٨</div><div class="label">معدل الانتقال</div></div>
+    <div class="stat"><div class="icon">💻</div><div class="num">١:١</div><div class="label">نسبة التعلم الرقمي</div></div>
+  </div>
+
+  <div class="quote-band">
+    <div class="wrap">
+      <blockquote>"كل طالب يمر من أبوابنا يغادر وهو يعرف أكثر عمن يمكن أن يصبح."</blockquote>
+      <cite>— مدير المدرسة، صرح العلم للتعليم الخاص</cite>
+    </div>
+  </div>
+
+  <section class="block wrap">
+    <div class="section-head">
+      <h2>آخر الأخبار</h2>
+      <a href="/ar/news/">عرض جميع الإعلانات ←</a>
+    </div>
+    <div class="news-grid">
+      {newsItems.length === 0 && <p class="empty">ستظهر الأخبار هنا بمجرد نشرها.</p>}
+      {newsItems.map((post) => (
+        <a class="news-card" href={`/ar/news/${post.id}/`}>
+          <div class="news-thumb" style={`background-image:url(${post.data.coverImage})`}></div>
+          <div class="news-body">
+            <div class="news-date">{post.data.date.toLocaleDateString('ar-OM', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+            <h3>{post.data.title_ar || post.data.title}</h3>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="block wrap gallery-section">
+    <div class="section-head">
+      <h2>الحياة في صرح العلم</h2>
+      <a href="/ar/gallery/">عرض المعرض الكامل ←</a>
+    </div>
+    <div class="gallery-grid">
+      {galleryPreview.length === 0 && <p class="empty">ستظهر الصور هنا بمجرد إضافتها من قبل الموظفين.</p>}
+      {galleryPreview.map((g) => (
+        <div class="g-item" style={`background-image:url(${g.image})`}></div>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero { position: relative; height: 560px; overflow: hidden; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, #0a5aa3 0%, #063e73 55%, #052e57 100%);
+  }
+  .hero-watermark {
+    position: absolute; left: -40px; bottom: -60px; width: 420px; height: 420px;
+    border: 2px solid rgba(255,255,255,.08); border-radius: 50%;
+  }
+  .hero-content {
+    position: relative; z-index: 2; height: 100%; max-width: 640px;
+    display: flex; flex-direction: column; justify-content: center; color: #fff;
+  }
+  .eyebrow { font-size: 14px; color: #BFD8F0; margin-bottom: 14px; }
+  .hero h1 { font-family: var(--font-display-ar); font-size: 40px; line-height: 1.3; font-weight: 600; margin-bottom: 18px; }
+  .hero .sub { font-size: 16px; color: #DCE7F4; margin-bottom: 28px; max-width: 480px; }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-dots {
+    position: absolute; bottom: 26px; right: 24px; z-index: 2; display: flex; gap: 8px;
+  }
+  .hero-dots span { width: 22px; height: 3px; background: rgba(255,255,255,.35); border-radius: 2px; }
+  .hero-dots span.active { background: #fff; }
+
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); border-bottom: 1px solid #ECEDEF; }
+  .stat { padding: 36px 16px; text-align: center; border-left: 1px solid #ECEDEF; }
+  .stat:last-child { border-left: none; }
+  .stat .icon { font-size: 26px; margin-bottom: 10px; }
+  .stat .num { font-family: var(--font-display-ar); font-size: 28px; font-weight: 600; color: var(--navy); }
+  .stat .label { font-size: 13px; color: var(--slate); margin-top: 4px; }
+
+  .quote-band { background: var(--cream); padding: 80px 0; text-align: center; }
+  .quote-band blockquote {
+    font-family: var(--font-display-ar); font-size: 24px; font-weight: 500;
+    max-width: 720px; margin: 0 auto 18px; line-height: 1.6; color: var(--navy-dark);
+  }
+  .quote-band cite { font-size: 13.5px; color: var(--slate); font-style: normal; }
+
+  .block { padding: 72px 24px; }
+  .section-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: wrap; gap: 10px; }
+  .section-head h2 { font-family: var(--font-display-ar); font-size: 26px; font-weight: 600; }
+  .section-head a { font-size: 13.5px; color: var(--navy); text-decoration: none; font-weight: 600; white-space: nowrap; }
+
+  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .news-card { border: 1px solid #ECEDEF; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; display: block; }
+  .news-thumb { height: 150px; background: linear-gradient(135deg,#E7ECF3,#D6DEE9); background-size: cover; background-position: center; }
+  .news-body { padding: 18px; }
+  .news-date { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .news-body h3 { font-size: 15.5px; font-weight: 600; line-height: 1.5; }
+
+  .gallery-section { background: var(--cream); }
+  .gallery-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1.4fr; grid-template-rows: 1fr 1fr; gap: 12px; height: 340px;
+  }
+  .g-item { background: linear-gradient(135deg,#D6E1EE,#B9CBE0); background-size: cover; background-position: center; border-radius: 8px; }
+  .g-item:last-child { grid-row: span 2; }
+  .empty { color: var(--slate); font-size: 14px; grid-column: 1 / -1; }
+
+  @media (max-width: 900px) {
+    .news-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3,1fr); height: auto; }
+    .g-item { min-height: 140px; }
+    .g-item:last-child { grid-row: span 1; }
+  }
+  @media (max-width: 600px) {
+    .hero { height: auto; padding: 60px 0; }
+    .hero h1 { font-size: 30px; }
+    .news-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+let singles = [];
+let albums = [];
+try {
+  singles = await getCollection('gallery-singles');
+  albums = await getCollection('gallery-albums');
+} catch {}
+
+const items = [
+  ...albums.map((a) => ({
+    type: 'album' as const,
+    title: a.data.title,
+    date: a.data.date,
+    cover: a.data.coverImage,
+    images: a.data.images,
+    count: a.data.images.length,
+  })),
+  ...singles.map((s) => ({
+    type: 'single' as const,
+    title: s.data.caption || '',
+    date: s.data.date,
+    cover: s.data.image,
+    images: [s.data.image],
+    count: 1,
+  })),
+].sort((a, b) => (b.date?.valueOf() || 0) - (a.date?.valueOf() || 0));
+---
+<BaseLayout title="Gallery — Sarh Al Elm Private School" lang="en">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Gallery</p>
+      <h1>Life at Sarh Al Elm</h1>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="grid">
+      {items.length === 0 && <p class="empty">Photos and albums will appear here once staff add them via the CMS.</p>}
+      {items.map((item, i) => (
+        <button class="g-tile" data-index={i} type="button">
+          <div class="g-img" style={`background-image:url(${item.cover})`}></div>
+          {item.type === 'album' && <span class="badge">{item.count} photos</span>}
+          {item.title && <span class="caption">{item.title}</span>}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+    <div class="lb-inner" id="lb-inner"></div>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ items }}>
+  const tiles = document.querySelectorAll('.g-tile');
+  const lightbox = document.getElementById('lightbox');
+  const lbInner = document.getElementById('lb-inner');
+  const lbClose = document.getElementById('lb-close');
+
+  tiles.forEach((tile) => {
+    tile.addEventListener('click', () => {
+      const idx = Number(tile.getAttribute('data-index'));
+      const item = items[idx];
+      lbInner.innerHTML = item.images
+        .map((src) => `<img src="${src}" alt="" />`)
+        .join('');
+      lightbox.hidden = false;
+    });
+  });
+  lbClose?.addEventListener('click', () => (lightbox.hidden = true));
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.hidden = true;
+  });
+</script>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; }
+  .block { padding: 64px 24px; }
+  .grid {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  }
+  .g-tile {
+    position: relative; border: none; padding: 0; background: none; cursor: pointer;
+    border-radius: 8px; overflow: hidden; aspect-ratio: 4/3; text-align: left;
+  }
+  .g-img {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg,#D6E1EE,#B9CBE0);
+    background-size: cover; background-position: center;
+  }
+  .badge {
+    position: absolute; top: 10px; right: 10px; background: rgba(7,75,138,.85); color: #fff;
+    font-size: 11px; padding: 4px 9px; border-radius: 12px; font-weight: 600;
+  }
+  .caption {
+    position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,.6), transparent);
+    color: #fff; font-size: 12.5px; padding: 20px 10px 8px;
+  }
+  .empty { color: var(--slate); grid-column: 1/-1; }
+
+  .lightbox {
+    position: fixed; inset: 0; background: rgba(5,20,40,.92); z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 40px;
+  }
+  .lb-inner { max-width: 900px; max-height: 85vh; overflow-y: auto; display: grid; gap: 12px; }
+  .lb-inner img { width: 100%; border-radius: 8px; }
+  .lb-close {
+    position: absolute; top: 20px; right: 24px; background: none; border: none; color: #fff;
+    font-size: 22px; cursor: pointer;
+  }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: repeat(2,1fr); } }
+</style>

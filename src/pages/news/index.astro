@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+let posts = [];
+try {
+  posts = (await getCollection('news')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+} catch {}
+---
+<BaseLayout title="News — Sarh Al Elm Private School" lang="en">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">News</p>
+      <h1>Announcements &amp; school updates</h1>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <div class="news-grid">
+      {posts.length === 0 && <p class="empty">No news posts yet — staff can publish the first one from the CMS.</p>}
+      {posts.map((post) => (
+        <a class="news-card" href={`/news/${post.id}/`}>
+          <div class="news-thumb" style={`background-image:url(${post.data.coverImage})`}></div>
+          <div class="news-body">
+            <div class="news-date">{post.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+            <h3>{post.data.title}</h3>
+            {post.data.excerpt && <p>{post.data.excerpt}</p>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; }
+  .block { padding: 64px 24px; }
+  .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .news-card { border: 1px solid #ECEDEF; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; display: block; }
+  .news-thumb { height: 160px; background: linear-gradient(135deg,#E7ECF3,#D6DEE9); background-size: cover; background-position: center; }
+  .news-body { padding: 18px; }
+  .news-date { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+  .news-body h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .news-body p { font-size: 13.5px; color: var(--slate); line-height: 1.5; }
+  .empty { color: var(--slate); }
+  @media (max-width: 800px) { .news-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const subjects = [
+  'اللغة الإنجليزية والآداب', 'اللغة العربية', 'الرياضيات', 'العلوم',
+  'التربية الإسلامية', 'الدراسات الاجتماعية', 'الحاسوب وتقنية المعلومات', 'الفن والتصميم',
+  'التربية الرياضية', 'الموسيقى', 'التربية الأخلاقية', 'الفرنسية (الصفوف ٦–٨)',
+];
+---
+<BaseLayout title="الأكاديميات — صرح العلم" lang="ar">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">الأكاديميات</p>
+      <h1>من الصف الأول إلى الثامن، رحلة تعليمية واحدة</h1>
+      <p class="sub">منهج يجمع بين التعلم القائم على الاستقصاء في كامبريدج وبنية إطار وزارة التربية والتعليم العمانية.</p>
+    </div>
+  </section>
+
+  <section class="block wrap">
+    <h2>المواد الدراسية</h2>
+    <div class="subject-grid">
+      {subjects.map((s) => <div class="subject-card">{s}</div>)}
+    </div>
+  </section>
+
+  <section class="block wrap grades">
+    <h2>المراحل الدراسية</h2>
+    <div class="grade-list">
+      <div class="grade-band">
+        <h3>الصفوف ١–٣</h3>
+        <p>سنوات التأسيس التي تركز على القراءة والكتابة والحساب وبناء عادات تعلم قوية.</p>
+      </div>
+      <div class="grade-band">
+        <h3>الصفوف ٤–٦</h3>
+        <p>تعرض أوسع للمواد الدراسية مع استقلالية متنامية وتعلم قائم على المشاريع.</p>
+      </div>
+      <div class="grade-band">
+        <h3>الصفوف ٧–٨</h3>
+        <p>تخصص أعمق في المواد، يُعد الطلاب للانتقال إلى المرحلة الثانوية.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display-ar); font-size: 30px; font-weight: 600; margin-bottom: 14px; max-width: 640px; }
+  .page-hero .sub { color: #DCE7F4; max-width: 560px; font-size: 15.5px; }
+  .block { padding: 64px 24px; }
+  h2 { font-family: var(--font-display-ar); font-size: 22px; margin-bottom: 24px; color: var(--navy-dark); }
+  .subject-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .subject-card { border: 1px solid #ECEDEF; border-radius: 8px; padding: 18px; font-size: 14.5px; font-weight: 500; }
+  .grades { background: var(--cream); }
+  .grade-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .grade-band { background: #fff; border-radius: 8px; padding: 24px; border: 1px solid #ECEDEF; }
+  .grade-band h3 { font-family: var(--font-display-ar); color: var(--navy); font-size: 17px; margin-bottom: 10px; }
+  .grade-band p { font-size: 14px; color: var(--slate); line-height: 1.7; }
+  @media (max-width: 800px) {
+    .subject-grid { grid-template-columns: 1fr 1fr; }
+    .grade-list { grid-template-columns: 1fr; }
+  }
+</style>

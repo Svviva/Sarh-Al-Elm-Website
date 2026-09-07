@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="About — Sarh Al Elm Private School" lang="en">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">About Us</p>
+      <h1>A community built on strong fundamentals</h1>
+      <p class="sub">Sarh Al Elm Private School serves Grades 1–8 in Muscat, blending the Cambridge curriculum with the Oman Ministry of Education framework.</p>
+    </div>
+  </section>
+
+  <section class="block wrap two-col">
+    <div>
+      <h2>Our story</h2>
+      <p>Sarh Al Elm was founded to give students in Muscat a rigorous, bilingual education that prepares them for both local and international pathways. Our name — meaning "the edifice of knowledge" — reflects our belief that education is built step by step, grade by grade.</p>
+      <p>Today, our classrooms bring together Cambridge's inquiry-based approach with the structure and cultural grounding of the Oman Ministry of Education curriculum, so students graduate fluent in both worlds.</p>
+    </div>
+    <div>
+      <h2>Our mission</h2>
+      <p>We aim to develop confident, capable learners who think critically, communicate in both Arabic and English, and carry strong values into whatever they pursue next.</p>
+      <h2 class="mt">Accreditation</h2>
+      <p>Sarh Al Elm follows the Cambridge curriculum framework alongside the Oman Ministry of Education requirements for Grades 1–8.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; margin-bottom: 14px; max-width: 640px; }
+  .page-hero .sub { color: #DCE7F4; max-width: 560px; font-size: 15.5px; }
+  .block { padding: 64px 24px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  h2 { font-family: var(--font-display); font-size: 22px; margin-bottom: 12px; color: var(--navy-dark); }
+  h2.mt { margin-top: 28px; }
+  p { color: var(--ink); font-size: 15px; line-height: 1.7; margin-bottom: 14px; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+</style>

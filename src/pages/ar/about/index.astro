@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="عن المدرسة — صرح العلم" lang="ar">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">عن المدرسة</p>
+      <h1>مجتمع مبني على أسس قوية</h1>
+      <p class="sub">تخدم مدرسة صرح العلم الخاصة الصفوف من ١ إلى ٨ في مسقط، وتجمع بين منهج كامبريدج وإطار وزارة التربية والتعليم العمانية.</p>
+    </div>
+  </section>
+
+  <section class="block wrap two-col">
+    <div>
+      <h2>قصتنا</h2>
+      <p>تأسست مدرسة صرح العلم لتقديم تعليم ثنائي اللغة وعالي الجودة لطلاب مسقط، يؤهلهم لمسارات محلية وعالمية على حد سواء. يعكس اسمنا — الذي يعني "صرح المعرفة" — إيماننا بأن التعليم يُبنى خطوة بخطوة، وصفاً بعد صف.</p>
+      <p>اليوم، تجمع فصولنا الدراسية بين أسلوب كامبريدج القائم على الاستقصاء وبنية ووزارة التربية والتعليم العمانية، ليتخرج الطلاب متمكنين من كلا العالمين.</p>
+    </div>
+    <div>
+      <h2>رسالتنا</h2>
+      <p>نهدف إلى تكوين متعلمين واثقين وقادرين، يفكرون بشكل نقدي، ويتواصلون باللغتين العربية والإنجليزية، ويحملون قيماً راسخة في كل ما يسعون إليه.</p>
+      <h2 class="mt">الاعتماد الأكاديمي</h2>
+      <p>تتبع مدرسة صرح العلم إطار منهج كامبريدج إلى جانب متطلبات وزارة التربية والتعليم العمانية للصفوف ١ إلى ٨.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
+  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
+  .page-hero h1 { font-family: var(--font-display-ar); font-size: 32px; font-weight: 600; margin-bottom: 14px; max-width: 640px; }
+  .page-hero .sub { color: #DCE7F4; max-width: 560px; font-size: 15.5px; }
+  .block { padding: 64px 24px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  h2 { font-family: var(--font-display-ar); font-size: 20px; margin-bottom: 12px; color: var(--navy-dark); }
+  h2.mt { margin-top: 28px; }
+  p { color: var(--ink); font-size: 15px; line-height: 1.8; margin-bottom: 14px; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+</style>

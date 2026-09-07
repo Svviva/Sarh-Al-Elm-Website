@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "en"
+
+collections:
+  - name: "news"
+    label: "News & Announcements"
+    folder: "src/content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title (English)", name: "title", widget: "string" }
+      - { label: "Title (Arabic)", name: "title_ar", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Excerpt (short summary for previews)", name: "excerpt", widget: "text", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "hero_slides"
+    label: "Homepage Hero Slides"
+    folder: "src/content/hero-slides"
+    create: true
+    slug: "slide-{{slug}}"
+    fields:
+      - { label: "Order (1 = shows first)", name: "order", widget: "number" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Headline (English)", name: "headline", widget: "string" }
+      - { label: "Headline (Arabic)", name: "headline_ar", widget: "string", required: false }
+      - { label: "Subheading (English)", name: "subhead", widget: "string", required: false }
+      - { label: "Subheading (Arabic)", name: "subhead_ar", widget: "string", required: false }
+      - { label: "Button Text", name: "ctaText", widget: "string", required: false }
+      - { label: "Button Link", name: "ctaLink", widget: "string", required: false }
+      - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
+
+  - name: "gallery_singles"
+    label: "Gallery — Single Photos"
+    folder: "src/content/gallery-singles"
+    create: true
+    slug: "photo-{{slug}}"
+    fields:
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Caption (English)", name: "caption", widget: "string", required: false }
+      - { label: "Caption (Arabic)", name: "caption_ar", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime", required: false }
+      - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
+
+  - name: "gallery_albums"
+    label: "Gallery — Albums"
+    folder: "src/content/gallery-albums"
+    create: true
+    slug: "album-{{slug}}"
+    fields:
+      - { label: "Album Title (English)", name: "title", widget: "string" }
+      - { label: "Album Title (Arabic)", name: "title_ar", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Cover Photo (pick the photo that represents this album)", name: "coverImage", widget: "image" }
+      - { label: "Photos (upload as many as you like)", name: "images", widget: "list", field: { label: "Photo", name: "image", widget: "image" } }
+      - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Social Links & Contact Info"
+        file: "src/content/settings/site.md"
+        fields:
+          - { label: "Facebook URL", name: "facebookUrl", widget: "string", required: false }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string", required: false }
+          - { label: "YouTube URL", name: "youtubeUrl", widget: "string", required: false }
+          - { label: "Twitter / X URL", name: "twitterUrl", widget: "string", required: false }
+          - { label: "Address (English)", name: "address", widget: "string", required: false }
+          - { label: "Address (Arabic)", name: "address_ar", widget: "string", required: false }
+          - { label: "Phone Number", name: "phone", widget: "string", required: false }
+          - { label: "Email Address", name: "email", widget: "string", required: false }
+          - { label: "Google Maps Embed URL", name: "mapEmbedUrl", widget: "string", required: false }
+          - { label: "Sila Login URL", name: "silaLoginUrl", widget: "string", required: false }
+          - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
