@@ -20,6 +20,11 @@ const socials = [
   { url: data?.youtubeUrl, label: 'YouTube' },
   { url: data?.twitterUrl, label: 'Twitter / X' },
 ].filter((s) => s.url);
+
+// Update these to match your actual accreditations/affiliations
+const badges = isAr
+  ? ['كامبريدج الدولية', 'وزارة التربية والتعليم العمانية']
+  : ['Cambridge International', 'Oman Ministry of Education'];
 ---
 <footer>
   <div class="wrap footer-grid">
@@ -66,6 +71,9 @@ const socials = [
       </ul>
     </div>
   </div>
+  <div class="wrap badges">
+    {badges.map((b) => <span class="badge">{b}</span>)}
+  </div>
   <div class="wrap footer-bottom">
     <span>© {new Date().getFullYear()} {isAr ? 'صرح العلم للتعليم الخاص' : 'Sarh Al Elm Private School'}</span>
     <a href={`${p}/privacy/`}>{isAr ? 'سياسة الخصوصية' : 'Privacy Policy · PDPL Compliance'}</a>
@@ -93,6 +101,14 @@ const socials = [
   h4 { color: #fff; font-size: 14px; margin-bottom: 14px; font-weight: 600; }
   footer ul { list-style: none; font-size: 13.5px; line-height: 2.1; }
   footer ul a { color: #B7CBE0; text-decoration: none; }
+  .badges {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 20px;
+  }
+  .badge {
+    border: 1px solid rgba(255,255,255,.25); border-radius: 20px;
+    padding: 6px 16px; font-size: 12px; color: #CFE0F2;
+  }
   .footer-bottom {
     border-top: 1px solid rgba(255,255,255,.12);
     padding-top: 20px;

@@ -47,6 +47,16 @@ const galleryAlbums = defineCollection({
   }),
 });
 
+const testimonials = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
+  schema: z.object({
+    quote: z.string(),
+    quote_ar: z.string().optional(),
+    parentName: z.string(),
+    order: z.number().optional(),
+  }),
+});
+
 const settings = defineCollection({
   loader: file('./src/content/settings/site.md', {
     parser: (text) => {
@@ -75,6 +85,10 @@ const settings = defineCollection({
     email: z.string().optional(),
     mapEmbedUrl: z.string().optional(),
     silaLoginUrl: z.string().optional(),
+    principalName: z.string().optional(),
+    principalPhoto: z.string().optional(),
+    principalMessage: z.string().optional(),
+    principalMessage_ar: z.string().optional(),
   }),
 });
 
@@ -83,5 +97,6 @@ export const collections = {
   'hero-slides': heroSlides,
   'gallery-singles': gallerySingles,
   'gallery-albums': galleryAlbums,
+  testimonials,
   settings,
 };

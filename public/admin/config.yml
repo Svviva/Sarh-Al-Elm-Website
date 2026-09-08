@@ -62,6 +62,18 @@ collections:
       - { label: "Photos (upload as many as you like)", name: "images", widget: "list", field: { label: "Photo", name: "image", widget: "image" } }
       - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
 
+  - name: "testimonials"
+    label: "Parent Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "testimonial-{{slug}}"
+    fields:
+      - { label: "Quote (English)", name: "quote", widget: "text" }
+      - { label: "Quote (Arabic)", name: "quote_ar", widget: "text", required: false }
+      - { label: "Parent Name", name: "parentName", widget: "string" }
+      - { label: "Order (lower shows first)", name: "order", widget: "number", required: false }
+      - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
+
   - name: "settings"
     label: "Site Settings"
     files:
@@ -79,4 +91,8 @@ collections:
           - { label: "Email Address", name: "email", widget: "string", required: false }
           - { label: "Google Maps Embed URL", name: "mapEmbedUrl", widget: "string", required: false }
           - { label: "Sila Login URL", name: "silaLoginUrl", widget: "string", required: false }
+          - { label: "Principal's Name", name: "principalName", widget: "string", required: false }
+          - { label: "Principal's Photo", name: "principalPhoto", widget: "image", required: false }
+          - { label: "Principal's Welcome Message (English)", name: "principalMessage", widget: "text", required: false }
+          - { label: "Principal's Welcome Message (Arabic)", name: "principalMessage_ar", widget: "text", required: false }
           - { label: "Body (not shown on site, leave blank)", name: "body", widget: "hidden", default: "" }
