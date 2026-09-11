@@ -1,6 +1,6 @@
 ---
 facebookUrl: ""
-instagramUrl: "@sarehalelm.school"
+instagramUrl: "https://www.instagram.com/sarehalelm.school?stkn=MW1rYm45bWRmYW16dQ=="
 youtubeUrl: ""
 twitterUrl: ""
 address: "Muscat, Oman"
