@@ -21,16 +21,17 @@ const socials = [
   { url: data?.twitterUrl, label: 'Twitter / X' },
 ].filter((s) => s.url);
 
-// Update these to match your actual accreditations/affiliations
-const badges = isAr
-  ? ['كامبريدج الدولية', 'وزارة التربية والتعليم العمانية']
-  : ['Cambridge International', 'Oman Ministry of Education'];
+// Real accreditation/affiliation logos
+const badges = [
+  { src: '/images/branding/moe-logo.jpeg', alt: isAr ? 'وزارة التربية والتعليم' : 'Ministry of Education' },
+  { src: '/images/branding/oman-vision-2040-logo.jpeg', alt: isAr ? 'رؤية عمان 2040' : 'Oman Vision 2040' },
+];
 ---
 <footer>
   <div class="wrap footer-grid">
     <div>
       <div class="brand">
-        <span class="crest">S</span>
+        <img class="crest" src="/images/branding/school-crest.jpeg" alt="Sarh Al Elm Private School crest" />
         <span class="name">{isAr ? 'صرح العلم' : 'Sarh Al Elm'}</span>
       </div>
       <p class="blurb">
@@ -72,7 +73,11 @@ const badges = isAr
     </div>
   </div>
   <div class="wrap badges">
-    {badges.map((b) => <span class="badge">{b}</span>)}
+    {badges.map((b) => (
+      <span class="badge">
+        <img src={b.src} alt={b.alt} />
+      </span>
+    ))}
   </div>
   <div class="wrap footer-bottom">
     <span>© {new Date().getFullYear()} {isAr ? 'صرح العلم للتعليم الخاص' : 'Sarh Al Elm Private School'}</span>
@@ -90,9 +95,7 @@ const badges = isAr
   }
   .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .crest {
-    width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-weight: 600; font-size: 16px;
+    width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
   }
   .brand .name { font-family: var(--font-display); color: #fff; font-size: 16px; font-weight: 600; }
   .blurb { font-size: 13px; color: #9FB6D0; max-width: 280px; line-height: 1.6; }
@@ -102,13 +105,14 @@ const badges = isAr
   footer ul { list-style: none; font-size: 13.5px; line-height: 2.1; }
   footer ul a { color: #B7CBE0; text-decoration: none; }
   .badges {
-    display: flex; gap: 12px; flex-wrap: wrap;
+    display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
     padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 20px;
   }
   .badge {
-    border: 1px solid rgba(255,255,255,.25); border-radius: 20px;
-    padding: 6px 16px; font-size: 12px; color: #CFE0F2;
+    background: #fff; border-radius: 8px;
+    padding: 8px 14px; display: flex; align-items: center;
   }
+  .badge img { height: 34px; width: auto; display: block; }
   .footer-bottom {
     border-top: 1px solid rgba(255,255,255,.12);
     padding-top: 20px;

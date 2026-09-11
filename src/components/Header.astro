@@ -42,7 +42,7 @@ const toggleHref = isAr
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href={isAr ? '/ar/' : '/'}>
-      <span class="crest">S</span>
+      <img class="crest" src="/images/branding/school-crest.jpeg" alt="Sarh Al Elm Private School crest" />
       <span class="brand-text">
         <span class="name">{isAr ? 'صرح العلم' : 'Sarh Al Elm'}</span>
         <span class="tag">{isAr ? 'نطمح للنجاح' : 'Aspiring for success'}</span>
@@ -89,17 +89,10 @@ const toggleHref = isAr
     text-decoration: none;
   }
   .crest {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: var(--navy);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
+    object-fit: cover;
     flex-shrink: 0;
   }
   .brand-text { display: flex; flex-direction: column; line-height: 1.25; }
