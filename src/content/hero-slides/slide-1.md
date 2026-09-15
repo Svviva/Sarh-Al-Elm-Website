@@ -1,6 +1,6 @@
 ---
 order: 1
-image: "/images/placeholder-hero-1.svg"
+image: "/images/hero-1.jpeg"
 headline: "Where curiosity becomes achievement"
 headline_ar: "حيث يتحول الفضول إلى إنجاز"
 subhead: "A learning community in Muscat built on strong fundamentals, bilingual excellence, and a love of discovery."
