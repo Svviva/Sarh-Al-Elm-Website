@@ -1,56 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getEntry } from 'astro:content';
-
-let settings;
-try { settings = await getEntry('settings', 'site'); } catch {}
-const data = settings?.data;
+let settings; try { settings=await getEntry('settings','site'); } catch {}
+const data=settings?.data; const phone=data?.phone||'+96897817830'; const email=data?.email||'sarhalilm-mawalih@moe.om'; const wa=data?.whatsappNumber||'96897817830';
 ---
-<BaseLayout title="Contact — Sarh Al Elm Private School" lang="en">
-  <section class="page-hero">
-    <div class="wrap">
-      <p class="eyebrow">Contact</p>
-      <h1>We'd love to hear from you</h1>
-    </div>
-  </section>
-
-  <section class="block wrap two-col">
-    <div class="info">
-      <div class="row">
-        <h3>Address</h3>
-        <p>{data?.address || 'Muscat, Oman'}</p>
-      </div>
-      <div class="row">
-        <h3>Phone</h3>
-        <p><a href={`tel:${data?.phone || ''}`}>{data?.phone || '+968 XXXX XXXX'}</a></p>
-      </div>
-      <div class="row">
-        <h3>Email</h3>
-        <p><a href={`mailto:${data?.email || ''}`}>{data?.email || 'info@sarhalelm.om'}</a></p>
-      </div>
-    </div>
-    <div class="map">
-      {data?.mapEmbedUrl
-        ? <iframe src={data.mapEmbedUrl} loading="lazy" title="School location"></iframe>
-        : <div class="map-placeholder">Map will appear here once a location link is added in Settings.</div>}
-    </div>
-  </section>
+<BaseLayout title="Contact | Sarh Al Elm Private School, Muscat" lang="en" description="Contact Sarh Al Elm Private School in Muscat, Oman by phone, email, WhatsApp or our online enquiry form.">
+<section class="page-hero"><div class="wrap"><p class="eyebrow">Contact Sarh Al Elm</p><h1>How can we help?</h1><p>Whether you are enquiring about admissions, school life or general information, our team would be pleased to hear from you.</p></div></section>
+<section class="block wrap contact-grid"><div class="details"><p class="kicker">School details</p><h2>Get in touch</h2><div class="detail"><span>Location</span><strong>{data?.address||'Muscat, Oman'}</strong></div><div class="detail"><span>Phone</span><a href={`tel:${phone}`}>{phone}</a></div><div class="detail"><span>Email</span><a href={`mailto:${email}`}>{email}</a></div><a class="whatsapp" href={`https://wa.me/${wa}?text=${encodeURIComponent('Hello Sarh Al Elm Private School. I would like to make an enquiry.')}`} target="_blank" rel="noopener">Chat with the school on WhatsApp</a>{data?.instagramUrl&&<a class="social" href={data.instagramUrl} target="_blank" rel="noopener">Visit our Instagram →</a>}</div><form name="contact-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="contact-enquiry"/><p class="hidden"><label>Do not fill: <input name="bot-field"/></label></p><h2>Send us a message</h2><label>Your name<input name="name" required autocomplete="name"/></label><label>Phone number<input name="phone" type="tel" autocomplete="tel"/></label><label>Email address<input name="email" type="email" required autocomplete="email"/></label><label>Enquiry type<select name="enquiry-type"><option>General enquiry</option><option>Admissions</option><option>Academics</option><option>School life</option><option>Other</option></select></label><label>Your message<textarea name="message" rows="6" required></textarea></label><button type="submit">Send message</button></form></section>
+<section class="map-band"><div class="wrap">{data?.mapEmbedUrl?<iframe src={data.mapEmbedUrl} loading="lazy" title="Sarh Al Elm Private School location"></iframe>:<div class="map-placeholder"><strong>School location</strong><p>{data?.address||'Muscat, Oman'}</p><small>A map can be displayed here once the school's approved map embed link is added to site settings.</small></div>}</div></section>
 </BaseLayout>
-
 <style>
-  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
-  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
-  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; }
-  .block { padding: 64px 24px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; }
-  .row { margin-bottom: 28px; }
-  .row h3 { font-size: 13px; text-transform: none; color: var(--slate); margin-bottom: 6px; font-weight: 600; }
-  .row p { font-size: 16px; }
-  .row a { color: var(--navy); text-decoration: none; font-weight: 600; }
-  .map iframe { width: 100%; height: 340px; border: 0; border-radius: 10px; }
-  .map-placeholder {
-    height: 340px; background: var(--cream); border-radius: 10px; display: flex;
-    align-items: center; justify-content: center; color: var(--slate); font-size: 14px; text-align: center; padding: 20px;
-  }
-  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+.page-hero{background:var(--navy-dark);color:#fff;padding:78px 0}.eyebrow,.kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#d5a43f;margin-bottom:9px}.page-hero h1{font-family:var(--font-display);font-size:clamp(36px,5vw,52px);margin-bottom:12px}.page-hero p{color:#dce7f4;max-width:650px}.block{padding-top:76px;padding-bottom:76px}.contact-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:70px}.details h2,form h2{font-family:var(--font-display);font-size:30px;color:var(--navy-dark);margin-bottom:28px}.detail{padding:17px 0;border-bottom:1px solid #e7eaee}.detail span{display:block;font-size:12px;color:var(--slate);margin-bottom:4px}.detail strong,.detail a{font-size:15px;color:var(--ink);text-decoration:none;overflow-wrap:anywhere}.whatsapp{display:block;background:#edf8f1;border:1px solid #cfe9d8;color:#176b38;text-decoration:none;font-weight:700;padding:14px 16px;border-radius:8px;margin-top:26px}.social{display:inline-block;color:var(--navy);font-weight:700;text-decoration:none;margin-top:18px}form{background:var(--cream);border:1px solid #e3e7eb;border-radius:14px;padding:30px}label{display:block;font-size:13px;font-weight:700;margin-top:15px}input,select,textarea{width:100%;margin-top:7px;border:1px solid #cbd4dc;border-radius:7px;background:#fff;padding:12px 13px;font:inherit}textarea{resize:vertical}button{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:13px 22px;font:inherit;font-weight:700;margin-top:20px;cursor:pointer}.hidden{position:absolute;left:-9999px}.map-band{background:var(--cream);padding:55px 0 75px}.map-band iframe,.map-placeholder{width:100%;height:360px;border:0;border-radius:14px}.map-placeholder{background:#fff;border:1px solid #e2e7ec;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px}.map-placeholder strong{font-family:var(--font-display);font-size:25px;color:var(--navy-dark)}.map-placeholder p{margin:8px 0}.map-placeholder small{color:var(--slate);max-width:500px}@media(max-width:800px){.contact-grid{grid-template-columns:1fr;gap:40px}.block{padding-top:56px;padding-bottom:56px}.page-hero{padding:60px 0}form{padding:22px}.map-band{padding:40px 0 55px}}
 </style>

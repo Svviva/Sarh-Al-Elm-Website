@@ -2,29 +2,16 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-
-interface Props {
-  title: string;
-  lang?: 'en' | 'ar';
-  description?: string;
-}
-const { title, lang = 'en', description = '' } = Astro.props;
-const dir = lang === 'ar' ? 'rtl' : 'ltr';
+import { getEntry } from 'astro:content';
+interface Props { title:string; lang?:'en'|'ar'; description?:string; image?:string; }
+const { title,lang='en',description='Sarh Al Elm Private School in Muscat, Oman.',image='/images/hero-1.jpeg' }=Astro.props;
+const dir=lang==='ar'?'rtl':'ltr';
+let settings; try { settings=await getEntry('settings','site'); } catch {}
+const s=settings?.data; const wa=s?.whatsappNumber||'';
+const canonical=Astro.site?new URL(Astro.url.pathname,Astro.site):undefined;
+const schema={"@context":"https://schema.org","@type":"School","name":"Sarh Al Elm Private School","description":description,"address":{"@type":"PostalAddress","addressLocality":"Muscat","addressCountry":"OM"},...(s?.phone?{"telephone":s.phone}:{}),...(s?.email?{"email":s.email}:{}),...(canonical?{"url":canonical.toString()}: {})};
 ---
-<!DOCTYPE html>
-<html lang={lang} dir={dir}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
-  <body>
-    <Header lang={lang} />
-    <main>
-      <slot />
-    </main>
-    <Footer lang={lang} />
-  </body>
-</html>
+<!DOCTYPE html><html lang={lang} dir={dir}><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>{title}</title><meta name="description" content={description}/><meta name="robots" content="index,follow"/>{canonical&&<link rel="canonical" href={canonical}/>}<meta property="og:type" content="website"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:image" content={image}/>{canonical&&<meta property="og:url" content={canonical}/>}<meta name="twitter:card" content="summary_large_image"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><script type="application/ld+json" set:html={JSON.stringify(schema)}></script></head><body><a class="skip-link" href="#main-content">Skip to main content</a><Header lang={lang}/><main id="main-content"><slot/></main><Footer lang={lang}/>{wa&&<a class="floating-wa" href={`https://wa.me/${wa}?text=${encodeURIComponent(lang==='ar'?'مرحباً، أود الاستفسار عن مدرسة صرح العلم الخاصة.':'Hello Sarh Al Elm Private School. I would like to make an enquiry.')}`} target="_blank" rel="noopener" aria-label="Contact Sarh Al Elm Private School on WhatsApp">WhatsApp</a>}</body></html>
+<style is:global>
+.skip-link{position:fixed;left:12px;top:-60px;z-index:1000;background:#fff;color:#111;padding:10px 14px;border-radius:6px}.skip-link:focus{top:12px}.floating-wa{position:fixed;right:20px;bottom:20px;z-index:45;background:#16733c;color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:12px 17px;border-radius:999px;box-shadow:0 6px 22px rgba(0,0,0,.2)}html[dir='rtl'] .floating-wa{right:auto;left:20px}@media(max-width:600px){.floating-wa{right:14px;bottom:14px;padding:11px 14px}html[dir='rtl'] .floating-wa{left:14px}}
+</style>
