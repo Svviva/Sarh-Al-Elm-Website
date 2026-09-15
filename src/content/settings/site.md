@@ -6,7 +6,7 @@ twitterUrl: ""
 address: "Muscat, Oman"
 address_ar: "مسقط، عُمان"
 phone: "+96897817830"
-whatsappNumber: "96897817830:
+whatsappNumber: "96897817830"
 email: "sarhalilm-mawalih@moe.om"
 mapEmbedUrl: ""
 silaLoginUrl: "https://sila.example.com"
