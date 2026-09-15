@@ -1,65 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const subjects = [
-  'English Language & Literature', 'Arabic Language', 'Mathematics', 'Science',
-  'Islamic Studies', 'Social Studies', 'ICT & Computing', 'Art & Design',
-  'Physical Education', 'Music', 'Life Skills',
+const needs=[
+['Curriculum & approvals','Official curriculum name for each grade; which elements follow Oman MOE requirements; exact Cambridge relationship, programme names and any registration/accreditation numbers that may be published.'],
+['Subjects by grade','Confirmed subject list for Grades 1–8, teaching language for each subject, weekly lesson allocation and any electives.'],
+['Assessment','How students are assessed; report frequency; examinations; continuous assessment; grading scale; promotion/progression policy.'],
+['Learning support','Support available for students who need additional academic, language or inclusion assistance, and how families access it.'],
+['Homework & parent reporting','Homework expectations by age, parent communication, reporting schedule and parent-teacher meeting arrangements.'],
+['Academic calendar & school day','Term dates, school hours, lesson length, break times and any differences by grade.']
 ];
 ---
-<BaseLayout title="Academics — Sarh Al Elm Private School" lang="en">
-  <section class="page-hero">
-    <div class="wrap">
-      <p class="eyebrow">Academics</p>
-      <h1>Grades 1 through 8, one continuous journey</h1>
-      <p class="sub">A curriculum that blends Cambridge's inquiry-based learning with the structure of the Oman Ministry of Education framework.</p>
-    </div>
-  </section>
-
-  <section class="block wrap">
-    <h2>Subjects offered</h2>
-    <div class="subject-grid">
-      {subjects.map((s) => <div class="subject-card">{s}</div>)}
-    </div>
-  </section>
-
-  <section class="block wrap grades">
-    <h2>Grade levels</h2>
-    <div class="grade-list">
-      <div class="grade-band">
-        <h3>Grades 1–3</h3>
-        <p>Foundation years focused on literacy, numeracy, and building strong learning habits.</p>
-      </div>
-      <div class="grade-band">
-        <h3>Grades 4–6</h3>
-        <p>Broader subject exposure with growing independence and project-based learning.</p>
-      </div>
-      <div class="grade-band">
-        <h3>Grades 7–8</h3>
-        <p>Deeper subject specialization, preparing students for the transition to secondary study.</p>
-      </div>
-    </div>
-  </section>
+<BaseLayout title="Academics | Sarh Al Elm Private School, Muscat" lang="en" description="Explore the academic journey for Grades 1–8 at Sarh Al Elm Private School in Muscat and the information families can expect about curriculum, learning and assessment.">
+<section class="hero"><div class="wrap"><p>Academics · Grades 1–8</p><h1>A clear learning journey, from strong foundations to growing independence</h1><span>Sarh Al Elm supports students through Grades 1–8 in a bilingual school environment. This page is being expanded with verified curriculum and academic information for families.</span></div></section>
+<section class="intro wrap"><div><p class="kicker">Our academic approach</p><h2>Learning with purpose, confidence and curiosity</h2></div><p>Our aim is to help students build secure foundations, communicate effectively, develop independence and participate actively in learning. As the school confirms its detailed curriculum information, this section will become the central reference point for parents.</p></section>
+<section class="journey"><div class="wrap"><p class="kicker">The learning journey</p><h2>Progress through Grades 1–8</h2><div class="bands"><article><b>01</b><h3>Grades 1–3</h3><p>Building strong foundations in literacy, numeracy, communication and positive learning habits.</p></article><article><b>02</b><h3>Grades 4–6</h3><p>Developing knowledge across subjects while encouraging greater independence, collaboration and confident thinking.</p></article><article><b>03</b><h3>Grades 7–8</h3><p>Deepening subject knowledge and strengthening the study skills students need for their next stage of education.</p></article></div></div></section>
+<section class="principles wrap"><p class="kicker">What guides learning</p><h2>A balanced school experience</h2><div class="principle-grid"><article><h3>Strong foundations</h3><p>Core knowledge and skills are developed progressively as students move through the school.</p></article><article><h3>Bilingual learning</h3><p>Language and communication are important parts of the school experience and students' wider development.</p></article><article><h3>Active participation</h3><p>Students are encouraged to ask questions, communicate ideas, practise skills and take increasing responsibility for learning.</p></article><article><h3>Growth & wellbeing</h3><p>Academic progress is supported by a respectful environment where students can develop confidence and a sense of belonging.</p></article></div></section>
+<section class="admin"><div class="wrap admin-grid"><div><p class="kicker">Information being confirmed</p><h2>Academic information the school administration should supply</h2><p>These details are intentionally not guessed. Once confirmed by the school, they can be published here in both English and Arabic.</p></div><div class="needs">{needs.map(([title,body])=><details><summary>{title}</summary><p>{body}</p></details>)}</div></div></section>
+<section class="cta"><div class="wrap"><h2>Have a question about your child's grade?</h2><p>Until the detailed academic information is published, families are welcome to contact the school directly.</p><a class="btn-primary" href="/contact/">Ask the school</a></div></section>
 </BaseLayout>
-
-<style>
-  .page-hero { background: var(--navy); color: #fff; padding: 64px 0; }
-  .page-hero .eyebrow { color: #BFD8F0; font-size: 14px; margin-bottom: 12px; }
-  .page-hero h1 { font-family: var(--font-display); font-size: 36px; font-weight: 600; margin-bottom: 14px; max-width: 640px; }
-  .page-hero .sub { color: #DCE7F4; max-width: 560px; font-size: 15.5px; }
-  .block { padding: 64px 24px; }
-  h2 { font-family: var(--font-display); font-size: 24px; margin-bottom: 24px; color: var(--navy-dark); }
-  .subject-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-  .subject-card {
-    border: 1px solid #ECEDEF; border-radius: 8px; padding: 18px; font-size: 14.5px; font-weight: 500;
-  }
-  .grades { background: var(--cream); }
-  .grade-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-  .grade-band { background: #fff; border-radius: 8px; padding: 24px; border: 1px solid #ECEDEF; }
-  .grade-band h3 { font-family: var(--font-display); color: var(--navy); font-size: 18px; margin-bottom: 10px; }
-  .grade-band p { font-size: 14px; color: var(--slate); line-height: 1.6; }
-  @media (max-width: 800px) {
-    .subject-grid { grid-template-columns: 1fr 1fr; }
-    .grade-list { grid-template-columns: 1fr; }
-  }
-</style>
+<style>.hero{background:linear-gradient(120deg,#063e73,#07589e);color:#fff;padding:86px 0}.hero>div>p,.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:#d5a43f}.hero h1{font-family:var(--font-display);font-size:clamp(38px,5vw,56px);line-height:1.08;max-width:850px;margin:10px 0 18px}.hero span{display:block;max-width:720px;color:#dce7f4;font-size:17px;line-height:1.7}.intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding-top:75px;padding-bottom:70px}.intro h2,.journey h2,.principles h2,.admin h2,.cta h2{font-family:var(--font-display);font-size:clamp(28px,3vw,38px);line-height:1.18;color:var(--navy-dark);margin-top:8px}.intro>p{color:var(--slate);line-height:1.8}.journey{background:var(--cream);padding:70px 0}.bands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.bands article,.principle-grid article{background:#fff;border:1px solid #e5e9ed;border-radius:12px;padding:28px}.bands b{color:var(--gold);font-size:12px}.bands h3,.principle-grid h3{font-family:var(--font-display);color:var(--navy-dark);font-size:21px;margin:9px 0}.bands p,.principle-grid p,.admin p{color:var(--slate);font-size:14px;line-height:1.7}.principles{padding-top:75px;padding-bottom:75px}.principle-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}.admin{background:#eef3f7;padding:72px 0}.admin-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}.admin-grid>div:first-child>p:last-child{margin-top:18px}.needs{border-top:1px solid #ccd6df}details{border-bottom:1px solid #ccd6df}summary{cursor:pointer;font-weight:700;padding:18px 32px 18px 0;position:relative}summary:after{content:'+';position:absolute;right:4px;color:var(--navy);font-size:20px}details[open] summary:after{content:'–'}details p{padding:0 32px 18px 0}.cta{text-align:center;padding:70px 0}.cta p{color:var(--slate);margin:12px auto 24px;max-width:620px}@media(max-width:750px){.hero{padding:65px 0}.intro,.admin-grid{grid-template-columns:1fr;gap:28px}.bands,.principle-grid{grid-template-columns:1fr}.intro,.principles{padding-top:55px;padding-bottom:55px}.journey,.admin{padding:55px 0}}</style>
