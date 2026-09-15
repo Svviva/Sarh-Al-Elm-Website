@@ -82,7 +82,7 @@ const badges = [
         {data?.address && <li>{isAr ? (data.address_ar || data.address) : data.address}</li>}
         {data?.phone && (
           <li class="phone-row">
-            <span>{data.phone}</span>
+            <a href={`tel:${data.phone.replace(/[^0-9+]/g, '')}`}>{data.phone}</a>
             {whatsappUrl && (
               <a href={whatsappUrl} target="_blank" rel="noopener" class="whatsapp-link" aria-label="Chat on WhatsApp" set:html={ICONS.whatsapp} />
             )}
