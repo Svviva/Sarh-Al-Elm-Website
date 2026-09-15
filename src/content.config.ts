@@ -82,6 +82,7 @@ const settings = defineCollection({
     address: z.string().optional(),
     address_ar: z.string().optional(),
     phone: z.string().optional(),
+    whatsappNumber: z.string().optional(),
     email: z.string().optional(),
     mapEmbedUrl: z.string().optional(),
     silaLoginUrl: z.string().optional(),
