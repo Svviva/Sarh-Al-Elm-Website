@@ -123,9 +123,9 @@ const badges = [
   .socials a {
     color: #CFE0F2; display: flex; align-items: center; justify-content: center;
     width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.08);
-    transition: background .2s ease, transform .2s ease;
+    transition: background .15s ease;
   }
-  .socials a:hover { background: rgba(255,255,255,.18); transform:translateY(-3px) scale(1.05); }
+  .socials a:hover { background: rgba(255,255,255,.18); }
   .socials a :global(svg) { width: 17px; height: 17px; }
   h4 { color: #fff; font-size: 14px; margin-bottom: 14px; font-weight: 600; }
   footer ul { list-style: none; font-size: 13.5px; line-height: 2.1; }
@@ -135,7 +135,7 @@ const badges = [
     width: 22px; height: 22px; border-radius: 50%; background: #25D366; color: #fff; flex-shrink: 0;
   }
   .whatsapp-link :global(svg) { width: 13px; height: 13px; }
-  footer ul a { color: #B7CBE0; text-decoration: none; transition:color .2s ease,transform .2s ease; display:inline-block; } footer ul a:hover{color:#fff;transform:translateX(3px)} html[dir='rtl'] footer ul a:hover{transform:translateX(-3px)}
+  footer ul a { color: #B7CBE0; text-decoration: none; }
   .badges {
     display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
     padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.12); margin-bottom: 20px;
@@ -144,7 +144,7 @@ const badges = [
     background: #fff; border-radius: 8px;
     padding: 8px 14px; display: flex; align-items: center;
   }
-  .badge img { height: 34px; width: auto; display: block; transition:transform .25s ease; }.badge:hover img{transform:scale(1.045)}
+  .badge img { height: 34px; width: auto; display: block; }
   .footer-bottom {
     border-top: 1px solid rgba(255,255,255,.12);
     padding-top: 20px;
@@ -163,4 +163,4 @@ const badges = [
   @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr; }
   }
-  @media(prefers-reduced-motion:reduce){.socials a,footer ul a,.badge img{transition:none!important;transform:none!important}}\n</style>
+</style>
